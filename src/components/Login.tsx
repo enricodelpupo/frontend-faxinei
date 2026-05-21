@@ -17,10 +17,28 @@ export default function LoginPage() {
     setError("");
 
     try {
-      // Simulação de chamada API
-      console.log("Simulando envio para o backend:", { email, password });
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      router.push("/dashboard");
+      // PREPARADO PARA O BACKEND: Payload estruturado
+      const payload = {
+        email: email,
+        senha: password
+      };
+
+      console.log("🚀 PAYLOAD PRONTO PARA O BACKEND (LOGIN):", JSON.stringify(payload, null, 2));
+
+      // TODO: Substitua a simulação abaixo pela sua chamada fetch real
+      // Exemplo de integração:
+      const response = await fetch("https://sua-api.com/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error("Falha no login");
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+
+      // Simulação temporária de espera
+      // await new Promise(resolve => setTimeout(resolve, 800));
+      // router.push("/dashboard");
     } catch (err) {
       console.error("Erro no login:", err);
       setError("Email ou senha incorretos. Por favor, tente novamente.");

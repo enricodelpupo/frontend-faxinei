@@ -7,11 +7,15 @@ import CustomSelect from "./CustomSelect";
 
 export default function CadastroPage() {
     const router = useRouter();
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
     const [cpf, setCpf] = useState("");
     const [celular, setCelular] = useState("");
     const [numero, setNumero] = useState("");
     const [tipoUsuario, setTipoUsuario] = useState("");
     const [uf, setUf] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, "");
@@ -35,9 +39,38 @@ export default function CadastroPage() {
         setNumero(value);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        router.push("/dashboard");
+        setIsLoading(true);
+
+        try {
+            // PREPARADO PARA O BACKEND: Payload apenas com os campos obrigatórios solicitados
+            const payload = {
+                nome: nome,
+                email: email,
+                senha: senha
+            };
+
+            console.log("🚀 PAYLOAD PRONTO PARA O BACKEND (CADASTRO):", JSON.stringify(payload, null, 2));
+
+            // TODO: Substitua a simulação abaixo pela sua chamada fetch real
+            // Exemplo de integração:
+            const response = await fetch("https://sua-api.com/api/cadastro", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error("Falha no cadastro");
+
+            // Simulação de tempo de resposta
+        //     await new Promise(resolve => setTimeout(resolve, 800));
+        //     router.push("/dashboard");
+        } catch (error) {
+            console.error("Erro ao cadastrar:", error);
+            alert("Ocorreu um erro ao realizar o cadastro.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -75,9 +108,12 @@ export default function CadastroPage() {
                                 <input
                                     type="text"
                                     id="nome"
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
                                     className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                     placeholder="João da Silva"
                                     required
+                                    disabled={isLoading}
                                 />
                             </div>
                             <div>
@@ -89,7 +125,6 @@ export default function CadastroPage() {
                                 </label>
                                 <CustomSelect
                                     id="tipo_usuario"
-                                    required
                                     value={tipoUsuario}
                                     onChange={setTipoUsuario}
                                     placeholder="Selecione"
@@ -118,7 +153,7 @@ export default function CadastroPage() {
                                     maxLength={14}
                                     className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                     placeholder="000.000.000-00"
-                                    required
+                                    disabled={isLoading}
                                 />
                             </div>
 
@@ -138,7 +173,7 @@ export default function CadastroPage() {
                                     maxLength={15}
                                     className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                     placeholder="(99) 99999-9999"
-                                    required
+                                    disabled={isLoading}
                                 />
                             </div>
                         </div>
@@ -152,35 +187,34 @@ export default function CadastroPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="sm:col-span-2">
                                     <label htmlFor="logradouro" className="block text-xs font-semibold text-slate-700 mb-1">Logradouro</label>
-                                    <input type="text" id="logradouro" className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Rua, Avenida, etc." required />
+                                    <input type="text" id="logradouro" disabled={isLoading} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Rua, Avenida, etc." />
                                 </div>
                                 <div>
                                     <label htmlFor="numero" className="block text-xs font-semibold text-slate-700 mb-1">Número</label>
-                                    <input type="text" id="numero" value={numero} onChange={handleNumeroChange} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="123" required />
+                                    <input type="text" id="numero" value={numero} onChange={handleNumeroChange} disabled={isLoading} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="123" />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label htmlFor="complemento" className="block text-xs font-semibold text-slate-700 mb-1">Complemento</label>
-                                    <input type="text" id="complemento" className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Apto, Bloco (opcional)" />
+                                    <input type="text" id="complemento" disabled={isLoading} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Apto, Bloco (opcional)" />
                                 </div>
                                 <div>
                                     <label htmlFor="bairro" className="block text-xs font-semibold text-slate-700 mb-1">Bairro</label>
-                                    <input type="text" id="bairro" className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Seu bairro" required />
+                                    <input type="text" id="bairro" disabled={isLoading} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Seu bairro" />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                                 <div className="sm:col-span-3">
                                     <label htmlFor="cidade" className="block text-xs font-semibold text-slate-700 mb-1">Cidade</label>
-                                    <input type="text" id="cidade" className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Sua cidade" required />
+                                    <input type="text" id="cidade" disabled={isLoading} className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400" placeholder="Sua cidade" />
                                 </div>
                                 <div>
                                     <label htmlFor="uf" className="block text-xs font-semibold text-slate-700 mb-1">UF</label>
                                     <CustomSelect
                                         id="uf"
-                                        required
                                         value={uf}
                                         onChange={setUf}
                                         placeholder="UF"
@@ -201,9 +235,12 @@ export default function CadastroPage() {
                             <input
                                 type="email"
                                 id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                 placeholder="seu@email.com"
                                 required
+                                disabled={isLoading}
                             />
                         </div>
 
@@ -219,9 +256,12 @@ export default function CadastroPage() {
                                 <input
                                     type="password"
                                     id="senha"
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
                                     className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                     placeholder="••••••••"
                                     required
+                                    disabled={isLoading}
                                 />
                             </div>
 
@@ -238,16 +278,27 @@ export default function CadastroPage() {
                                     id="confirmar-senha"
                                     className="w-full px-4 py-3 rounded-2xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 hover:border-slate-300 transition-all bg-white text-slate-900 text-sm outline-none placeholder:text-slate-400"
                                     placeholder="••••••••"
-                                    required
+                                    disabled={isLoading}
                                 />
                             </div>
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-4 mt-6 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 cursor-pointer shadow-sm"
+                            disabled={isLoading}
+                            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-4 mt-6 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 cursor-pointer shadow-sm flex justify-center items-center disabled:opacity-70"
                         >
-                            Criar conta
+                            {isLoading ? (
+                                <>
+                                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                  Criando conta...
+                                </>
+                              ) : (
+                                "Criar conta"
+                              )}
                         </button>
                     </form>
 
