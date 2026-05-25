@@ -83,7 +83,6 @@ export default function DashboardFaxineira() {
       'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
-
     for (let i = 0; i < firstDay; i++) {
       days.push(<div key={`empty-${i}`} className="p-2"></div>);
     }
@@ -281,7 +280,7 @@ export default function DashboardFaxineira() {
       <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
         <div className="h-20 flex items-center px-8 border-b border-slate-100">
           <img src="/logo.png" alt="Faxinei Logo" className="w-8 h-8 object-contain mr-3" />
-          <span className="font-extrabold text-xl text-slate-900 tracking-tight">Faxinei PRO</span>
+          <span className="font-extrabold text-xl text-slate-900 tracking-tight">Faxinei</span>
         </div>
         <nav className="flex-1 p-4 space-y-2">
           <button 

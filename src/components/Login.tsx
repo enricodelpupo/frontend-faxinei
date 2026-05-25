@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,22 +24,18 @@ export default function LoginPage() {
         senha: password
       };
 
-      console.log("🚀 PAYLOAD PRONTO PARA O BACKEND (LOGIN):", JSON.stringify(payload, null, 2));
+      console.log("PAYLOAD PRONTO PARA O BACKEND (LOGIN):", JSON.stringify(payload, null, 2));
 
-      // TODO: Substitua a simulação abaixo pela sua chamada fetch real
-      // Exemplo de integração:
-      const response = await fetch("https://sua-api.com/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) throw new Error("Falha no login");
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
+      const response = await axios.post("http://localhost:3333/api/auth/login", payload);
+      
+      const { access_token, usuario } = response.data;
+      localStorage.setItem("token", access_token);
 
-      // Simulação temporária de espera
-      // await new Promise(resolve => setTimeout(resolve, 800));
-      // router.push("/dashboard");
+      if (usuario.papel === "DIARISTA") {
+        router.push("/dashboard-faxineira");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       console.error("Erro no login:", err);
       setError("Email ou senha incorretos. Por favor, tente novamente.");
