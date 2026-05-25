@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CustomSelect from "./CustomSelect";
+import axios from "axios";
 
 export default function CadastroPage() {
     const router = useRouter();
@@ -44,27 +45,20 @@ export default function CadastroPage() {
         setIsLoading(true);
 
         try {
-            // PREPARADO PARA O BACKEND: Payload apenas com os campos obrigatórios solicitados
+            const papel = tipoUsuario === "faxinar" ? "DIARISTA" : "CLIENTE";
+
             const payload = {
                 nome: nome,
                 email: email,
-                senha: senha
+                senha: senha,
+                papel: papel
             };
 
             console.log("🚀 PAYLOAD PRONTO PARA O BACKEND (CADASTRO):", JSON.stringify(payload, null, 2));
 
-            // TODO: Substitua a simulação abaixo pela sua chamada fetch real
-            // Exemplo de integração:
-            const response = await fetch("https://sua-api.com/api/cadastro", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            });
-            if (!response.ok) throw new Error("Falha no cadastro");
-
-            // Simulação de tempo de resposta
-        //     await new Promise(resolve => setTimeout(resolve, 800));
-        //     router.push("/dashboard");
+            await axios.post("http://localhost:3333/api/usuarios/criar", payload);
+            
+            router.push("/login");
         } catch (error) {
             console.error("Erro ao cadastrar:", error);
             alert("Ocorreu um erro ao realizar o cadastro.");
@@ -128,6 +122,7 @@ export default function CadastroPage() {
                                     value={tipoUsuario}
                                     onChange={setTipoUsuario}
                                     placeholder="Selecione"
+                                    disabled={isLoading}
                                     options={[
                                         { value: "faxinar", label: "Quero faxinar" },
                                         { value: "contratar", label: "Quero contratar" }
@@ -218,6 +213,7 @@ export default function CadastroPage() {
                                         value={uf}
                                         onChange={setUf}
                                         placeholder="UF"
+                                        disabled={isLoading}
                                         options={["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"].map(sigla => ({ value: sigla, label: sigla }))}
                                     />
                                 </div>
