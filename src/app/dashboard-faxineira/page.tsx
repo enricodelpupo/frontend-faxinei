@@ -1,10 +1,31 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { DashboardSidebar, DashboardHeader, SidebarItem } from "@/components/layout/DashboardLayout";
 
 export default function DashboardFaxineiraPage() {
+  const router = useRouter();
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("Profissional");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("usuario");
+    if (stored) {
+      try {
+        const usuario = JSON.parse(stored);
+        // Redirecionar se não validado
+        if (usuario.papel === 'DIARISTA' && !usuario.validado) {
+          router.push('/cadastro-confirmacao');
+          return;
+        }
+        setUserName(usuario.nome || "");
+        setUserRole(usuario.papel === "DIARISTA" ? "Profissional" : "Cliente");
+      } catch { }
+    }
+  }, [router]);
+
   const sidebarItems: SidebarItem[] = [
     {
       id: "inicio",
@@ -28,15 +49,19 @@ export default function DashboardFaxineiraPage() {
         activeTab="inicio" 
         items={sidebarItems} 
         userRole="Profissional" 
-        onLogout={() => window.location.href = "/home"}
+        onLogout={() => {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("usuario");
+          window.location.href = "/home";
+        }}
       />
 
       <main className="flex-1 flex flex-col mb-[72px] md:mb-0 relative z-10 h-screen overflow-hidden">
         <DashboardHeader 
           title="Painel Geral" 
           subtitle="Gerencie suas faxinas e ganhos de forma simples." 
-          userName="Maria Profissional" 
-          userRole="Profissional" 
+          userName={userName} 
+          userRole={userRole} 
         />
         
         <div className="p-4 sm:p-8 flex-1 overflow-y-auto no-scrollbar">

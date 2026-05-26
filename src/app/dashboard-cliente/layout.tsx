@@ -31,6 +31,20 @@ export default function DashboardClientLayout({ children }: { children: React.Re
   const pathname = usePathname();
   const activeTab = pathname.startsWith("/dashboard-cliente/agendar") ? "agendar" : "inicio";
 
+  const [userName, setUserName] = React.useState("");
+  const [userRole, setUserRole] = React.useState("Cliente");
+
+  React.useEffect(() => {
+    const stored = localStorage.getItem("usuario");
+    if (stored) {
+      try {
+        const usuario = JSON.parse(stored);
+        setUserName(usuario.nome || "");
+        setUserRole(usuario.papel === "DIARISTA" ? "Profissional" : "Cliente");
+      } catch { }
+    }
+  }, []);
+
   const title = activeTab === "inicio" ? "Painel Geral" : "Agendar Faxina";
   const subtitle = activeTab === "inicio" ? "Bem-vindo(a) de volta! Aqui está o resumo do seu dia." : "Encontre os melhores profissionais de limpeza em poucos passos.";
 
@@ -43,8 +57,12 @@ export default function DashboardClientLayout({ children }: { children: React.Re
       <DashboardSidebar
         activeTab={activeTab}
         items={sidebarItems}
-        userRole="Cliente"
-        onLogout={() => window.location.href = "/home"}
+        userRole={userRole}
+        onLogout={() => {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("usuario");
+          window.location.href = "/home";
+        }}
         tipTitle="Dica do dia"
         tipDescription="Deixe os produtos de limpeza em um local de fácil acesso para a diarista."
       />
@@ -53,8 +71,8 @@ export default function DashboardClientLayout({ children }: { children: React.Re
         <DashboardHeader
           title={title}
           subtitle={subtitle}
-          userName="Usuário Teste"
-          userRole="Cliente"
+          userName={userName}
+          userRole={userRole}
         />
 
         <div className="p-4 sm:p-8 flex-1 overflow-y-auto no-scrollbar pb-36 md:pb-28">
