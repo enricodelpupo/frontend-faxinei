@@ -36,6 +36,7 @@ export function Header({ onLoginClick }: HeaderProps) {
             {/* Botões de Ação */}
             <div className="flex items-center gap-4 ml-2 pl-8 border-l border-slate-700">
               <button
+                type="button"
                 onClick={onLoginClick}
                 className="cursor-pointer text-sm font-semibold text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-2 py-1"
               >
@@ -53,6 +54,7 @@ export function Header({ onLoginClick }: HeaderProps) {
           {/* Navegação Mobile */}
           <div className="flex md:hidden items-center gap-3">
             <button
+              type="button"
               onClick={onLoginClick}
               className="cursor-pointer text-sm font-semibold text-slate-300 hover:text-white focus:outline-none"
             >
