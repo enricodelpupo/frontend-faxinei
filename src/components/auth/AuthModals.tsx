@@ -43,7 +43,7 @@ export function AuthModals({
 
       // Sucesso no login
       onCloseLogin();
-      
+
       if (data.usuario?.papel === 'DIARISTA') {
         router.push('/dashboard-faxineira');
       } else {
@@ -69,8 +69,8 @@ export function AuthModals({
           )}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">E-mail</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
               required
@@ -80,8 +80,8 @@ export function AuthModals({
           </div>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">Senha</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               value={loginSenha}
               onChange={(e) => setLoginSenha(e.target.value)}
               required
@@ -89,7 +89,11 @@ export function AuthModals({
               placeholder="••••••••"
             />
           </div>
-
+          <div className="flex justify-end items-center text-sm">
+            <button type="button" className="font-bold text-primary-600 hover:text-primary-700 transition-colors">
+              Esqueceu a senha?
+            </button>
+          </div>
           <Button type="submit" className="w-full mt-6 py-4 text-base" isLoading={isLoginLoading}>
             Entrar
           </Button>

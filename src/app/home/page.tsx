@@ -31,10 +31,7 @@ export default function HomePage() {
             {/* Seção Principal (Hero) */}
             <main className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
                 <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-100 text-primary-700 text-sm font-semibold mb-8 shadow-sm">
-                        <span className="flex h-2 w-2 rounded-full bg-primary-500 animate-pulse"></span>
-                        A melhor plataforma de serviços domésticos
-                    </div>
+
                     <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15]">
                         Sua casa impecável <br className="hidden md:block"/>
                         com <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-cyan-500">apenas um clique</span>

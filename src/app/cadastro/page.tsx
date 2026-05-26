@@ -60,10 +60,10 @@ export default function CadastroPage() {
     <div className="min-h-screen flex font-sans">
 
       {/* Left Side - Branding (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-primary-600 relative overflow-hidden flex-col justify-between p-12 text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-slate-900 relative overflow-hidden flex-col justify-between p-12 text-white">
         {/* Background blobs */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary-500/50 rounded-full blur-3xl" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/40 rounded-full blur-3xl" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/20 rounded-full blur-3xl" />
 
         <div className="relative z-10">
           <Link href="/home" className="flex items-center gap-3 w-fit hover:opacity-90 transition-opacity">
@@ -78,12 +78,12 @@ export default function CadastroPage() {
           <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
             Sua casa impecável com apenas um clique.
           </h1>
-          <p className="text-primary-100 text-lg leading-relaxed">
+          <p className="text-slate-300 text-lg leading-relaxed">
             Junte-se a milhares de clientes e profissionais na plataforma mais segura, rápida e confiável de serviços domésticos do Brasil.
           </p>
         </div>
 
-        <div className="relative z-10 text-primary-200 text-sm font-medium">
+        <div className="relative z-10 text-slate-400 text-sm font-medium">
           © {new Date().getFullYear()} Faxinei. Todos os direitos reservados.
         </div>
       </div>
