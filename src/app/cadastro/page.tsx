@@ -54,7 +54,7 @@ export default function CadastroPage() {
     }
   };
 
-  const InputClass = "w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-slate-500 text-slate-900";
+  const InputClass = "w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-slate-500 text-slate-900";
 
   return (
     <div className="min-h-screen flex font-sans">
@@ -89,7 +89,7 @@ export default function CadastroPage() {
       </div>
 
       {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-white relative">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-brand-light relative">
         <Link href="/home" className="absolute top-6 right-6 lg:hidden flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg overflow-hidden relative border border-slate-200">
             <Image src="/logo.png" alt="Faxinei Logo" fill className="object-cover" />

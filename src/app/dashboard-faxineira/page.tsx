@@ -19,7 +19,7 @@ export default function DashboardFaxineiraPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex relative overflow-hidden">
+    <div className="min-h-screen bg-brand-light flex relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary-100/50 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-[200px] w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[100px] pointer-events-none" />
@@ -42,7 +42,7 @@ export default function DashboardFaxineiraPage() {
         <div className="p-4 sm:p-8 flex-1 overflow-y-auto no-scrollbar">
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               
-              <div className="glass p-10 rounded-3xl border border-white/50 shadow-sm text-center relative overflow-hidden max-w-2xl mx-auto mt-12">
+              <div className="bg-white p-10 rounded-3xl border border-slate-200/60 shadow-sm text-center relative overflow-hidden max-w-2xl mx-auto mt-12">
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-primary-300 to-primary-600 rounded-full blur-3xl opacity-20"></div>
                 <div className="w-20 h-20 bg-gradient-to-br from-primary-400 to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-500/40 text-white transform rotate-6">
                     <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
