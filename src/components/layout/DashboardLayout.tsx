@@ -30,12 +30,12 @@ export function DashboardSidebar({
   return (
     <>
       {/* Sidebar Desktop */}
-      <aside className="w-72 glass border-r border-slate-200/50 hidden md:flex flex-col z-20 m-4 rounded-3xl shadow-sm">
+      <aside className="w-72 bg-brand-dark text-slate-300 border border-slate-800 hidden md:flex flex-col z-20 m-4 rounded-3xl shadow-lg">
         <div className="h-24 flex items-center px-8">
-            <div className="w-10 h-10 rounded-xl overflow-hidden relative border border-slate-200 bg-white flex-shrink-0 mr-3 shadow-lg shadow-primary-500/30">
+            <div className="w-10 h-10 rounded-xl overflow-hidden relative border border-slate-700 bg-white flex-shrink-0 mr-3 shadow-lg shadow-primary-500/30">
               <Image src="/logo.png" alt="Faxinei Logo" fill className="object-cover" />
             </div>
-          <span className="font-extrabold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 tracking-tight">Faxinei</span>
+          <span className="font-extrabold text-2xl text-white tracking-tight">Faxinei</span>
         </div>
         
         <nav className="flex-1 p-5 space-y-3">
@@ -43,12 +43,12 @@ export function DashboardSidebar({
             const isActive = activeTab === item.id;
             const className = `w-full flex items-center px-5 py-4 rounded-2xl font-bold transition-all ${
               isActive 
-                ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25" 
-                : "text-slate-600 hover:bg-white/60 hover:text-slate-900 group"
+                ? "bg-primary-600 text-white shadow-lg shadow-primary-600/25" 
+                : "text-slate-400 hover:bg-slate-800/60 hover:text-white group"
             }`;
             
             const IconWrapper = ({ children }: { children: React.ReactNode }) => (
-              <div className={`mr-3 flex items-center justify-center ${isActive ? "text-white" : "text-slate-400 group-hover:text-primary-500 group-hover:scale-110 transition-transform"}`}>
+              <div className={`mr-3 flex items-center justify-center ${isActive ? "text-white" : "text-slate-500 group-hover:text-primary-400 group-hover:scale-110 transition-transform"}`}>
                 {children}
               </div>
             );
@@ -73,15 +73,15 @@ export function DashboardSidebar({
         
         <div className="p-5">
           {tipTitle && tipDescription && (
-            <div className="bg-gradient-to-br from-primary-50 to-white border border-primary-100 rounded-2xl p-4 mb-4 shadow-sm relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-16 h-16 bg-primary-100 rounded-bl-full -mr-4 -mt-4 opacity-50"></div>
-               <p className="text-xs font-bold text-primary-700 uppercase tracking-wider mb-1">{tipTitle}</p>
-               <p className="text-sm font-medium text-slate-700">{tipDescription}</p>
+            <div className="bg-slate-800/40 border border-slate-800 rounded-2xl p-4 mb-4 shadow-sm relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-16 h-16 bg-primary-500/10 rounded-bl-full -mr-4 -mt-4"></div>
+               <p className="text-xs font-bold text-primary-400 uppercase tracking-wider mb-1">{tipTitle}</p>
+               <p className="text-sm font-medium text-slate-300">{tipDescription}</p>
             </div>
           )}
           <button 
             onClick={onLogout} 
-            className="w-full flex items-center px-5 py-4 text-red-600 hover:bg-red-50 rounded-2xl font-bold transition-colors"
+            className="w-full flex items-center px-5 py-4 text-red-400 hover:bg-red-950/20 rounded-2xl font-bold transition-colors"
           >
             <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg> 
             Sair da conta
@@ -90,18 +90,18 @@ export function DashboardSidebar({
       </aside>
 
       {/* Navegação Mobile Inferior */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 glass border-t border-slate-200/50 flex justify-around p-2.5 z-40 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-dark border-t border-slate-800 flex justify-around p-2.5 z-40 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.2)]">
         {items.map(item => {
           const isActive = activeTab === item.id;
           const className = `flex flex-col items-center p-2 rounded-2xl w-[4.5rem] transition-all ${
             isActive 
-              ? "text-white bg-primary-500 shadow-md shadow-primary-500/30" 
-              : "text-slate-500 hover:text-slate-900 hover:bg-slate-100/80"
+              ? "text-white bg-primary-600 shadow-md shadow-primary-600/30" 
+              : "text-slate-400 hover:text-white hover:bg-slate-800/80"
           }`;
 
           const content = (
             <>
-              <div className={`w-6 h-6 mb-1 flex items-center justify-center ${isActive ? "text-white" : "text-slate-500"}`}>
+              <div className={`w-6 h-6 mb-1 flex items-center justify-center ${isActive ? "text-white" : "text-slate-400"}`}>
                 {item.icon}
               </div>
               <span className="text-[10px] font-bold">{item.label}</span>

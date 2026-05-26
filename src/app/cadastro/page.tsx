@@ -233,7 +233,7 @@ export default function CadastroPage() {
       </div>
 
       {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-white relative">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-brand-light relative">
         <Link href="/home" className="absolute top-6 right-6 lg:hidden flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg overflow-hidden relative border border-slate-200">
             <Image src="/logo.png" alt="Faxinei Logo" fill className="object-cover" />
@@ -257,21 +257,19 @@ export default function CadastroPage() {
                   onClick={() => {
                     if (step.number < currentStep) setCurrentStep(step.number);
                   }}
-                  className={`flex items-center gap-2 text-sm font-bold transition-all ${
-                    step.number === currentStep
+                  className={`flex items-center gap-2 text-sm font-bold transition-all ${step.number === currentStep
                       ? 'text-primary-600'
                       : step.number < currentStep
-                      ? 'text-primary-400 cursor-pointer hover:text-primary-500'
-                      : 'text-slate-300'
-                  }`}
+                        ? 'text-primary-400 cursor-pointer hover:text-primary-500'
+                        : 'text-slate-300'
+                    }`}
                 >
-                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border-2 transition-all ${
-                    step.number === currentStep
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border-2 transition-all ${step.number === currentStep
                       ? 'bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/30'
                       : step.number < currentStep
-                      ? 'bg-primary-100 text-primary-600 border-primary-200'
-                      : 'bg-slate-100 text-slate-400 border-slate-200'
-                  }`}>
+                        ? 'bg-primary-100 text-primary-600 border-primary-200'
+                        : 'bg-slate-100 text-slate-400 border-slate-200'
+                    }`}>
                     {step.number < currentStep ? (
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
