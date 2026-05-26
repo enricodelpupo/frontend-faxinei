@@ -41,11 +41,18 @@ export function AuthModals({
         throw new Error(data.message || 'Erro ao realizar login.');
       }
 
-      // Sucesso no login
+      // Sucesso no login — salvar token e dados do usuário
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
       onCloseLogin();
 
       if (data.usuario?.papel === 'DIARISTA') {
-        router.push('/dashboard-faxineira');
+        if (data.usuario?.validado) {
+          router.push('/dashboard-faxineira');
+        } else {
+          router.push('/cadastro-confirmacao');
+        }
       } else {
         router.push('/dashboard-cliente');
       }
