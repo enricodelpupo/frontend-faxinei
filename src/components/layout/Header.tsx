@@ -26,12 +26,27 @@ export function Header({ onLoginClick }: HeaderProps) {
             <Link href="/home" className="text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors">
               Início
             </Link>
-            <Link href="#conheca" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+            <a
+              href="#conheca"
+              onClick={(e) => { e.preventDefault(); document.getElementById('conheca')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+            >
               Como Funciona
-            </Link>
-            <Link href="#diferenciais" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+            </a>
+            <a
+              href="#diferenciais"
+              onClick={(e) => { e.preventDefault(); document.getElementById('diferenciais')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+            >
               Diferenciais
-            </Link>
+            </a>
+            <a
+              href="#planos"
+              onClick={(e) => { e.preventDefault(); document.getElementById('planos')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+            >
+              Planos
+            </a>
 
             {/* Botões de Ação */}
             <div className="flex items-center gap-4 ml-2 pl-8 border-l border-slate-700">

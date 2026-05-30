@@ -104,27 +104,159 @@ export default function HomePage() {
             {/* Diferenciais */}
             <section id="diferenciais" className="py-24 bg-brand-light text-slate-900 px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200/50">
                 <div className="max-w-7xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                            Por que escolher o Faxinei?
+                        </h2>
+                        <p className="text-lg text-slate-600 leading-relaxed">
+                            Tecnologia e segurança a serviço da sua tranquilidade.
+                        </p>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-primary-500/50 transition-colors">
-                            <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-xl flex items-center justify-center mb-6">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                             </div>
                             <h4 className="text-xl font-bold text-slate-900 mb-3">Verificação Rigorosa</h4>
-                            <p className="text-slate-600 leading-relaxed">Todos os perfis na plataforma passam por uma rigorosa análise de antecedentes, garantindo máxima segurança para o seu lar.</p>
+                            <p className="text-slate-600 leading-relaxed">Todos os perfis passam por análise de antecedentes, garantindo máxima segurança para o seu lar.</p>
                         </div>
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-primary-500/50 transition-colors">
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-3">App Inteligente</h4>
-                            <p className="text-slate-600 leading-relaxed">Acompanhe o status do serviço em tempo real, veja avaliações e realize pagamentos diretamente pelo nosso aplicativo.</p>
+                            <h4 className="text-xl font-bold text-slate-900 mb-3">Acesso Inteligente</h4>
+                            <p className="text-slate-600 leading-relaxed">Revele números apenas quando precisar. Cada contato fica salvo no seu painel, sem novas cobranças.</p>
                         </div>
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-primary-500/50 transition-colors">
-                            <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-6">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                        <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                             </div>
                             <h4 className="text-xl font-bold text-slate-900 mb-3">Sistema de Avaliações</h4>
                             <p className="text-slate-600 leading-relaxed">Qualidade garantida por quem importa: você. Avalie e confira o ranking dos melhores profissionais da sua região.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Seção de Planos */}
+            <section id="planos" className="py-24 bg-brand-light px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200/50">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                            Escolha o plano ideal para você
+                        </h2>
+                        <p className="text-lg text-slate-600 leading-relaxed">
+                            Planos pensados para conectar você aos melhores profissionais com total transparência e controle.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+                        {/* Plano Básico */}
+                        <div className="group relative bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                            <div>
+                                <p className="text-xs font-bold text-primary-600 uppercase tracking-widest mb-3">Consumo Passivo</p>
+                                <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2">Básico</h3>
+                                <div className="flex items-baseline gap-1 mb-1">
+                                    <span className="text-sm font-medium text-slate-500">R$</span>
+                                    <span className="text-5xl md:text-6xl font-extrabold text-slate-900">29,90</span>
+                                    <span className="text-base font-medium text-slate-500">/mês</span>
+                                </div>
+                                <p className="text-sm text-slate-500 mb-8">Franquia mensal de <strong className="text-slate-700">8 números</strong> revelados</p>
+                            </div>
+
+                            <div className="flex-grow">
+                                <ul className="space-y-4 mb-10">
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-700">Visualizar catálogo de diaristas</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-700">Visualizar mural de oportunidades</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-700">8 revelações de WhatsApp por mês</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-700">Rollover de créditos não usados</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-700">Histórico permanente de contatos</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-slate-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" /></svg>
+                                        <span className="text-slate-400">Publicar vagas no mural</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-slate-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" /></svg>
+                                        <span className="text-slate-400">Aparecer na vitrine de busca</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <Link href="/cadastro?plano=basico" className="block w-full py-4 px-6 text-base font-bold rounded-2xl text-slate-900 bg-white border-2 border-slate-900 hover:bg-slate-900 hover:text-white shadow-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer text-center">
+                                Assinar Básico
+                            </Link>
+                        </div>
+
+                        {/* Plano Premium */}
+                        <div className="group relative bg-brand-dark p-8 md:p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300 border border-slate-800 flex flex-col overflow-hidden">
+                            {/* Badge Mais Escolhido */}
+                            <div className="absolute top-6 right-6 z-20">
+                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-primary-500 to-cyan-500 text-white shadow-lg shadow-primary-500/30">
+                                    Mais escolhido
+                                </span>
+                            </div>
+
+                            {/* Glow effect */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+
+                            <div className="relative z-10">
+                                <p className="text-xs font-bold text-primary-400 uppercase tracking-widest mb-3">Acesso Total e Ativo</p>
+                                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-2">Premium</h3>
+                                <div className="flex items-baseline gap-1 mb-1">
+                                    <span className="text-sm font-medium text-slate-400">R$</span>
+                                    <span className="text-5xl md:text-6xl font-extrabold text-white">59,90</span>
+                                    <span className="text-base font-medium text-slate-400">/mês</span>
+                                </div>
+                                <p className="text-sm text-slate-400 mb-8">Franquia mensal de <strong className="text-slate-200">12 números</strong> revelados</p>
+                            </div>
+
+                            <div className="flex-grow relative z-10">
+                                <ul className="space-y-4 mb-10">
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200 font-semibold">Tudo do Básico</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200">Publicar demandas e disponibilidade no mural</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200">Perfil destacado na vitrine de busca</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200">12 revelações de WhatsApp por mês</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200">Selo Premium no perfil</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <svg className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <span className="text-slate-200">Acesso completo ao Clube de Vantagens</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <Link href="/cadastro?plano=premium" className="relative z-10 block w-full py-4 px-6 text-base font-bold rounded-2xl text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-xl shadow-primary-500/30 hover:shadow-primary-500/40 transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer text-center">
+                                Assinar Premium
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -134,3 +266,4 @@ export default function HomePage() {
         </div>
     );
 }
+

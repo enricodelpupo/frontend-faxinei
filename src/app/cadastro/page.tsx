@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
@@ -31,15 +31,51 @@ function maskCep(value: string) {
     .replace(/(\d{5})(\d)/, '$1-$2');
 }
 
+function maskCardNumber(value: string) {
+  return value
+    .replace(/\D/g, '')
+    .slice(0, 16)
+    .replace(/(\d{4})(?=\d)/g, '$1 ');
+}
+
+function maskCardExpiry(value: string) {
+  return value
+    .replace(/\D/g, '')
+    .slice(0, 4)
+    .replace(/(\d{2})(\d)/, '$1/$2');
+}
+
+function maskCvv(value: string) {
+  return value.replace(/\D/g, '').slice(0, 4);
+}
+
 // === Etapas ===
 const STEPS = [
   { number: 1, label: 'Dados Pessoais' },
   { number: 2, label: 'Acesso' },
   { number: 3, label: 'Endereço' },
+  { number: 4, label: 'Pagamento' },
 ];
 
-export default function CadastroPage() {
+// Dados dos planos
+const PLANS = {
+  basico: {
+    name: 'Básico',
+    price: '29,90',
+    tag: 'Consumo Passivo',
+    features: ['8 revelações de WhatsApp/mês', 'Catálogo de diaristas', 'Mural de oportunidades', 'Rollover de créditos'],
+  },
+  premium: {
+    name: 'Premium',
+    price: '59,90',
+    tag: 'Acesso Total e Ativo',
+    features: ['12 revelações de WhatsApp/mês', 'Tudo do Básico', 'Publicar no mural', 'Perfil destacado', 'Selo Premium', 'Clube de Vantagens'],
+  },
+};
+
+function CadastroContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Etapa atual
   const [currentStep, setCurrentStep] = useState(1);
@@ -63,11 +99,26 @@ export default function CadastroPage() {
   const [regCidade, setRegCidade] = useState('');
   const [regEstado, setRegEstado] = useState('');
 
+  // Step 4 - Pagamento
+  const [selectedPlan, setSelectedPlan] = useState<'basico' | 'premium'>('basico');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
+  const [cardName, setCardName] = useState('');
+
   // Loading & errors
   const [isLoading, setIsLoading] = useState(false);
   const [isCepLoading, setIsCepLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // Ler plano da URL
+  useEffect(() => {
+    const plano = searchParams.get('plano');
+    if (plano === 'premium' || plano === 'basico') {
+      setSelectedPlan(plano);
+    }
+  }, [searchParams]);
 
   // Validação por etapa
   const validateStep = (step: number): boolean => {
@@ -96,13 +147,26 @@ export default function CadastroPage() {
       if (!regEstado || regEstado.length !== 2) errors.estado = 'Estado deve ter 2 caracteres (sigla)';
     }
 
+    if (step === 4) {
+      const cardDigits = cardNumber.replace(/\D/g, '');
+      if (cardDigits.length < 13 || cardDigits.length > 16) errors.cardNumber = 'Número do cartão inválido';
+      const expiryDigits = cardExpiry.replace(/\D/g, '');
+      if (expiryDigits.length !== 4) errors.cardExpiry = 'Data de validade inválida';
+      else {
+        const month = parseInt(expiryDigits.slice(0, 2));
+        if (month < 1 || month > 12) errors.cardExpiry = 'Mês inválido';
+      }
+      if (cardCvv.length < 3) errors.cardCvv = 'CVV inválido';
+      if (!cardName.trim() || cardName.trim().length < 3) errors.cardName = 'Nome do titular é obrigatório';
+    }
+
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep((prev) => Math.min(prev + 1, 3));
+      setCurrentStep((prev) => Math.min(prev + 1, 4));
       setErrorMsg('');
     }
   };
@@ -138,7 +202,7 @@ export default function CadastroPage() {
   // Submit
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep(3)) return;
+    if (!validateStep(4)) return;
 
     setIsLoading(true);
     setErrorMsg('');
@@ -199,6 +263,7 @@ export default function CadastroPage() {
   const ErrorClass = "text-xs font-semibold text-red-500 mt-1.5";
 
   const progress = ((currentStep - 1) / (STEPS.length - 1)) * 100;
+  const plan = PLANS[selectedPlan];
 
   return (
     <div className="min-h-screen flex font-sans">
@@ -248,8 +313,15 @@ export default function CadastroPage() {
           </div>
 
           {/* Barra de Progresso */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-3">
+          <div className="mb-10">
+            <div className="flex items-start justify-between relative">
+              {/* Linha de conexão atrás dos circles */}
+              <div className="absolute top-[14px] left-[28px] right-[28px] h-[3px] bg-slate-200 rounded-full" />
+              <div
+                className="absolute top-[14px] left-[28px] h-[3px] bg-gradient-to-r from-primary-400 to-primary-600 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progress}%`, maxWidth: 'calc(100% - 56px)' }}
+              />
+
               {STEPS.map((step) => (
                 <button
                   key={step.number}
@@ -257,17 +329,12 @@ export default function CadastroPage() {
                   onClick={() => {
                     if (step.number < currentStep) setCurrentStep(step.number);
                   }}
-                  className={`flex items-center gap-2 text-sm font-bold transition-all ${step.number === currentStep
-                      ? 'text-primary-600'
-                      : step.number < currentStep
-                        ? 'text-primary-400 cursor-pointer hover:text-primary-500'
-                        : 'text-slate-300'
-                    }`}
+                  className="flex flex-col items-center gap-2 relative z-10 group"
                 >
                   <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border-2 transition-all ${step.number === currentStep
-                      ? 'bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/30'
+                      ? 'bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/30 scale-110'
                       : step.number < currentStep
-                        ? 'bg-primary-100 text-primary-600 border-primary-200'
+                        ? 'bg-primary-100 text-primary-600 border-primary-200 cursor-pointer group-hover:border-primary-400'
                         : 'bg-slate-100 text-slate-400 border-slate-200'
                     }`}>
                     {step.number < currentStep ? (
@@ -276,15 +343,16 @@ export default function CadastroPage() {
                       </svg>
                     ) : step.number}
                   </span>
-                  <span className="hidden sm:inline">{step.label}</span>
+                  <span className={`text-[11px] font-bold transition-colors whitespace-nowrap ${step.number === currentStep
+                      ? 'text-primary-600'
+                      : step.number < currentStep
+                        ? 'text-primary-400 group-hover:text-primary-500'
+                        : 'text-slate-400'
+                    }`}>
+                    {step.label}
+                  </span>
                 </button>
               ))}
-            </div>
-            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-primary-400 to-primary-600 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progress}%` }}
-              />
             </div>
           </div>
 
@@ -524,8 +592,185 @@ export default function CadastroPage() {
                     </svg>
                     Voltar
                   </button>
+                  <Button type="button" className="flex-1 py-4 text-base" onClick={handleNext}>
+                    Próximo
+                    <svg className="w-4 h-4 ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* === STEP 4: Pagamento === */}
+            {currentStep === 4 && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                {/* Seleção de Plano */}
+                <div>
+                  <label className={LabelClass}>Escolha seu plano</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlan('basico')}
+                      className={`relative p-4 rounded-2xl border-2 transition-all text-left ${
+                        selectedPlan === 'basico'
+                          ? 'border-primary-500 bg-primary-50/50 shadow-md shadow-primary-500/10'
+                          : 'border-slate-200 bg-white hover:border-slate-300'
+                      }`}
+                    >
+                      {selectedPlan === 'basico' && (
+                        <div className="absolute top-3 right-3">
+                          <div className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center">
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                          </div>
+                        </div>
+                      )}
+                      <p className="text-xs font-bold text-primary-600 uppercase tracking-wider mb-1">Básico</p>
+                      <p className="text-2xl font-extrabold text-slate-900">R$ 29,90<span className="text-sm font-medium text-slate-500">/mês</span></p>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlan('premium')}
+                      className={`relative p-4 rounded-2xl border-2 transition-all text-left ${
+                        selectedPlan === 'premium'
+                          ? 'border-primary-500 bg-slate-900 shadow-md shadow-primary-500/10'
+                          : 'border-slate-700 bg-slate-900 hover:border-slate-600'
+                      }`}
+                    >
+                      {selectedPlan === 'premium' && (
+                        <div className="absolute top-3 right-3">
+                          <div className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center">
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                          </div>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="text-xs font-bold text-primary-400 uppercase tracking-wider">Premium</p>
+                        <span className="text-[10px] font-bold bg-gradient-to-r from-primary-500 to-cyan-500 text-white px-2 py-0.5 rounded-full">Popular</span>
+                      </div>
+                      <p className="text-2xl font-extrabold text-white">R$ 59,90<span className="text-sm font-medium text-slate-400">/mês</span></p>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Resumo do plano */}
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">{plan.tag}</p>
+                      <p className="text-base font-extrabold text-slate-900">Plano {plan.name}</p>
+                    </div>
+                    <p className="text-xl font-extrabold text-slate-900">R$ {plan.price}<span className="text-xs font-medium text-slate-500">/mês</span></p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {plan.features.map((feat, i) => (
+                      <span key={i} className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 bg-white border border-slate-200 rounded-lg px-2.5 py-1">
+                        <svg className="w-3 h-3 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Dados do cartão */}
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg className="w-5 h-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                    <label className="text-sm font-bold text-slate-700">Dados do Cartão</label>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className={LabelClass}>Número do Cartão</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={cardNumber}
+                          onChange={(e) => setCardNumber(maskCardNumber(e.target.value))}
+                          className={InputClass}
+                          placeholder="0000 0000 0000 0000"
+                          inputMode="numeric"
+                        />
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                          <div className="w-8 h-5 bg-blue-600 rounded flex items-center justify-center">
+                            <span className="text-white text-[8px] font-bold">VISA</span>
+                          </div>
+                          <div className="w-8 h-5 bg-red-500 rounded flex items-center justify-center">
+                            <div className="flex -space-x-1">
+                              <div className="w-2.5 h-2.5 bg-red-400 rounded-full" />
+                              <div className="w-2.5 h-2.5 bg-yellow-400 rounded-full" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {fieldErrors.cardNumber && <p className={ErrorClass}>{fieldErrors.cardNumber}</p>}
+                    </div>
+
+                    <div>
+                      <label className={LabelClass}>Nome do Titular</label>
+                      <input
+                        type="text"
+                        value={cardName}
+                        onChange={(e) => setCardName(e.target.value.toUpperCase())}
+                        className={`${InputClass} uppercase tracking-wide`}
+                        placeholder="NOME IMPRESSO NO CARTÃO"
+                      />
+                      {fieldErrors.cardName && <p className={ErrorClass}>{fieldErrors.cardName}</p>}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className={LabelClass}>Validade</label>
+                        <input
+                          type="text"
+                          value={cardExpiry}
+                          onChange={(e) => setCardExpiry(maskCardExpiry(e.target.value))}
+                          className={InputClass}
+                          placeholder="MM/AA"
+                          inputMode="numeric"
+                        />
+                        {fieldErrors.cardExpiry && <p className={ErrorClass}>{fieldErrors.cardExpiry}</p>}
+                      </div>
+                      <div>
+                        <label className={LabelClass}>CVV</label>
+                        <input
+                          type="text"
+                          value={cardCvv}
+                          onChange={(e) => setCardCvv(maskCvv(e.target.value))}
+                          className={InputClass}
+                          placeholder="000"
+                          inputMode="numeric"
+                        />
+                        {fieldErrors.cardCvv && <p className={ErrorClass}>{fieldErrors.cardCvv}</p>}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Selo de segurança */}
+                <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-100 rounded-xl">
+                  <svg className="w-5 h-5 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <p className="text-xs font-semibold text-green-700">Pagamento 100% seguro com criptografia de ponta a ponta.</p>
+                </div>
+
+                <div className="flex gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="flex-1 py-4 text-base font-bold text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
+                  >
+                    <svg className="w-4 h-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Voltar
+                  </button>
                   <Button type="submit" className="flex-1 py-4 text-base" isLoading={isLoading}>
-                    Criar Conta
+                    <svg className="w-4 h-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    Assinar e Criar Conta
                   </Button>
                 </div>
               </div>
@@ -543,3 +788,16 @@ export default function CadastroPage() {
     </div>
   );
 }
+
+export default function CadastroPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-brand-light">
+        <div className="w-8 h-8 border-3 border-primary-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <CadastroContent />
+    </Suspense>
+  );
+}
+
