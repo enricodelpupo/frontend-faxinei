@@ -43,7 +43,7 @@ export default function DashboardFaxineiraPage() {
     <div className="min-h-screen bg-brand-light flex relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary-100/50 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-[200px] w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-[200px] w-[400px] h-[400px] bg-primary-100/50 rounded-full blur-[100px] pointer-events-none" />
 
       <DashboardSidebar 
         activeTab="inicio" 

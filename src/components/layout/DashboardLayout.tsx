@@ -38,7 +38,7 @@ export function DashboardSidebar({
           <span className="font-extrabold text-2xl text-white tracking-tight">Faxinei</span>
         </div>
         
-        <nav className="flex-1 p-5 space-y-3">
+        <nav className="flex-1 p-5 space-y-3 overflow-y-auto no-scrollbar">
           {items.map((item) => {
             const isActive = activeTab === item.id;
             const className = `w-full flex items-center px-5 py-4 rounded-2xl font-bold transition-all ${
@@ -144,11 +144,11 @@ export function DashboardHeader({ title, subtitle, userName, userRole }: { title
             </svg>
         </button>
         <div className="flex items-center gap-3">
-            <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-bold text-slate-900">{userName}</span>
-                <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${userRole === 'Cliente' ? 'text-primary-600 bg-primary-50' : 'text-teal-600 bg-teal-50 border border-teal-100'}`}>{userRole}</span>
+            <div className="hidden sm:flex flex-col items-center justify-center">
+                <span className="text-sm font-bold text-slate-900 capitalize leading-tight">{userName}</span>
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md mt-0.5 ${userRole === 'Contratante' ? 'text-primary-600 bg-primary-50' : 'text-primary-600 bg-primary-50'}`}>{userRole}</span>
             </div>
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold border-2 border-white shadow-md cursor-pointer hover:shadow-lg transition-shadow ${userRole === 'Cliente' ? 'bg-gradient-to-r from-slate-800 to-slate-900' : 'bg-gradient-to-r from-primary-500 to-primary-700'}`}>
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold border-2 border-white shadow-md cursor-pointer hover:shadow-lg transition-shadow ${userRole === 'Contratante' ? 'bg-gradient-to-r from-slate-800 to-slate-900' : 'bg-gradient-to-r from-primary-500 to-primary-700'}`}>
               {userName.charAt(0).toUpperCase()}
             </div>
         </div>

@@ -17,7 +17,7 @@ export default function HomePage() {
         <div className="min-h-screen bg-brand-light flex flex-col font-sans relative overflow-hidden">
             {/* Background Decorations */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-200/40 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute top-[20%] right-[-5%] w-[30%] h-[30%] bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-[20%] right-[-5%] w-[30%] h-[30%] bg-primary-200/30 rounded-full blur-3xl pointer-events-none" />
 
             <Header 
                 onLoginClick={openLogin}
@@ -61,7 +61,7 @@ export default function HomePage() {
                             A revolução nos serviços domésticos
                         </h2>
                         <p className="text-lg text-slate-600 leading-relaxed">
-                            Esqueça a burocracia. O Faxinei foi desenhado para criar uma conexão perfeita, ágil e totalmente segura entre clientes e profissionais de limpeza.
+                            Esqueça a burocracia. O Faxinei funciona como uma vitrine desenhada para criar uma conexão perfeita e ágil entre contratantes e profissionais de limpeza.
                         </p>
                     </div>
 
@@ -77,7 +77,7 @@ export default function HomePage() {
                                 </div>
                                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Para sua Casa</h3>
                                 <p className="text-slate-600 leading-relaxed">
-                                    Agende diárias em poucos cliques. Profissionais verificados, pagamento seguro pelo app e garantia de um ambiente sempre impecável. Você tem o controle total da sua agenda de limpeza.
+                                    Encontre a profissional ideal em poucos cliques. Entre em contato diretamente pelo WhatsApp, combine os detalhes do serviço por fora e tenha o controle total de quem você contrata.
                                 </p>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ export default function HomePage() {
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-4">Para seu Negócio</h3>
                                 <p className="text-slate-300 leading-relaxed">
-                                    Seja dono(a) da sua rotina. Receba propostas de clientes próximos a você, construa uma reputação de 5 estrelas e garanta uma renda com total autonomia e segurança.
+                                    Seja dono(a) da sua rotina. Exponha seu perfil na nossa vitrine, receba contatos direto no seu WhatsApp, construa uma reputação de 5 estrelas e garanta sua renda com total autonomia.
                                 </p>
                             </div>
                         </div>
@@ -115,24 +115,24 @@ export default function HomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
                             <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-3">Verificação Rigorosa</h4>
-                            <p className="text-slate-600 leading-relaxed">Todos os perfis passam por análise de antecedentes, garantindo máxima segurança para o seu lar.</p>
+                            <h4 className="text-xl font-bold text-slate-900 mb-3">Encontrar Profissionais</h4>
+                            <p className="text-slate-600 leading-relaxed">Busque e encontre os profissionais ideais para a sua necessidade de forma rápida e prática.</p>
                         </div>
                         <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-3">Acesso Inteligente</h4>
-                            <p className="text-slate-600 leading-relaxed">Revele números apenas quando precisar. Cada contato fica salvo no seu painel, sem novas cobranças.</p>
+                            <h4 className="text-xl font-bold text-slate-900 mb-3">Revelar Número</h4>
+                            <p className="text-slate-600 leading-relaxed">Libere o contato de WhatsApp do profissional apenas quando tiver real interesse no serviço.</p>
                         </div>
                         <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-3">Sistema de Avaliações</h4>
-                            <p className="text-slate-600 leading-relaxed">Qualidade garantida por quem importa: você. Avalie e confira o ranking dos melhores profissionais da sua região.</p>
+                            <h4 className="text-xl font-bold text-slate-900 mb-3">Avaliar Atendimentos</h4>
+                            <p className="text-slate-600 leading-relaxed">Compartilhe sua experiência e avalie o serviço prestado para ajudar a comunidade.</p>
                         </div>
                     </div>
                 </div>
